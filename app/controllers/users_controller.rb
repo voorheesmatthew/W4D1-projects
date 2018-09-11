@@ -44,16 +44,16 @@ class UsersController < ApplicationController
     if !user_exists
       render plain: "User not found", status: 404
     else
-      user_name = User.find(params[:id]).name
-      User.find(params[:id]).delete
-      render plain: "Deleted, #{user_name}!"
+      user_name = User.find(params[:id])
+      user_name.destroy
+      render json: user_name
     end
   end
   
   private
   
   def user_params
-    params.require(:user).permit(:name, :email)
+    params.require(:user).permit(:username)
   end
   
 end
